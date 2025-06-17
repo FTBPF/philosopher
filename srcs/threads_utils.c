@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
+/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:39:37 by franc             #+#    #+#             */
-/*   Updated: 2025/06/09 18:01:12 by franc            ###   ########.fr       */
+/*   Updated: 2025/06/17 16:05:19 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int is_simulation_over(t_data *data)
 	return (res);
 }
 
-void print_action(t_philo *phil, char *action)
+void print_action(t_philo *philo, char *action)
 {
 	if (is_simulation_over(philo->data))
 		return ;

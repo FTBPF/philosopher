@@ -22,7 +22,7 @@ static int create_philos_threads(t_data *data)
 		if (pthread_create(&data->philos[i].thread, NULL, &philo_routine, &data->philos[i]) != 0)
 		{
 			printf("Error: Failed to create philosopher thread %d\n", i);
-			data->dead = 1;
+			data->dead_flag = 1;
 			return (1);
 		}
 		if (data->num_philos > 1)
@@ -34,10 +34,10 @@ static int create_philos_threads(t_data *data)
 
 static int create_master_thread(t_data *data, pthread_t *master_thread)
 {
-	if (pthread_create(master_thread, NULL, &master_routine, data) != 0)
+	if (pthread_create(master_thread, NULL, &game_routine, data) != 0)
 	{
 		printf("Error: Failed to create master thread\n");
-		data->dead = 1;
+		data->dead_flag = 1;
 		return (1);
 	}
 	return (0);
@@ -53,14 +53,14 @@ static void wait_for_threads(t_data *data, pthread_t *master_thread)
 		if (pthread_join(data->philos[i].thread, NULL) != 0)
 		{
 			printf("Error: Failed to join philosopher thread %d\n", i);
-			data->dead = 1;
+			data->dead_flag = 1;
 		}
 		i++;
 	}
 	if (pthread_join(*master_thread, NULL) != 0)
 	{
 		printf("Error: Failed to join master thread\n");
-		data->dead = 1;
+		data->dead_flag = 1;
 	}
 }
 
@@ -105,13 +105,11 @@ int main(int argc, char **argv)
 	if (create_philos_threads(&data))
 	{
 		printf("Error: Failed to create philosopher threads\n");
-		free_data(&data);
 		return (1);
 	}
 	if (create_master_thread(&data, &master_thread))
 	{
 		printf("Error: Failed to create master thread\n");
-		free_data(&data);
 		return (1);
 	}
 	wait_for_threads(&data, &master_thread);

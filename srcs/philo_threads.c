@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_threads.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
+/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:30:38 by franc             #+#    #+#             */
-/*   Updated: 2025/06/09 17:39:06 by franc            ###   ########.fr       */
+/*   Updated: 2025/06/17 16:06:57 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void *philo_routine(void *arg)
 		if (is_simulation_over(philo->data))
 			break ;
 		print_action(philo, "is sleeping");
-		ft_usleep(phil->data->time_to_sleep, philo);
+		ft_usleep(philo->data->time_to_sleep, philo);
 		if (is_simulation_over(philo->data))
 			break ;
 		print_action(philo, "is thinking");
