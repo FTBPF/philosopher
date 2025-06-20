@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_threads.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:10:35 by frteixei          #+#    #+#             */
-/*   Updated: 2025/06/17 16:28:41 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:41:24 by franc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	check_philo_death(t_data *data, int i)
 	size_t	cur_time;
 
 	cur_time = get_time();
+	pthread_mutex_lock(&data->philo_mutex);
 	pthread_mutex_lock(&data->print_mutex);
 	if ((cur_time - data->philos[i].last_meal) > (size_t)data->time_to_die)
 	{
@@ -26,32 +27,32 @@ static int	check_philo_death(t_data *data, int i)
 			data->philos[i].id);
 		pthread_mutex_unlock(&data->dead_mutex);
 		pthread_mutex_unlock(&data->print_mutex);
+		pthread_mutex_unlock(&data->philo_mutex);
 		return (1);
 	}
 	pthread_mutex_unlock(&data->print_mutex);
+	pthread_mutex_unlock(&data->philo_mutex);
 	return (0);
 }
 
 static int	check_all_philos_full(t_data *data)
 {
 	int	i;
-	int	all_ate;
 
 	i = 0;
-	all_ate = 1;
 	while (i < data->num_philos)
 	{
-		pthread_mutex_lock(&data->print_mutex);
+		pthread_mutex_lock(&data->philo_mutex);
 		if (data->philos[i].meal_count < data->max_meals || data->max_meals ==
 			-1)
-			all_ate = 0;
-		pthread_mutex_unlock(&data->print_mutex);
+			return (0);
+		pthread_mutex_unlock(&data->philo_mutex);
 		i++;
 	}
-	return (all_ate);
+	return (1);
 }
 
-void	*game_routine(void *arg)
+void	*monitor_simulation(void *arg)
 {
 	t_data	*data;
 	int		i;
@@ -74,6 +75,39 @@ void	*game_routine(void *arg)
 			break ;
 		}
 		usleep(1);
+	}
+	return (NULL);
+}
+
+static void one_philo(t_philo *philo)
+{
+	print_action(philo, "has taken a fork");
+	ft_usleep(philo->data->time_to_die, philo);
+}
+
+void *philo_routine(void *arg)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)arg;
+	if (philo->data->num_philos == 1)
+	{
+		one_philo(philo);
+		return (NULL);
+	}
+	if (philo->id % 2 == 0)
+		usleep(1);
+	while (!is_simulation_over(philo->data))
+	{
+		take_forks(philo);
+		update_philo_state(philo);
+		if (is_simulation_over(philo->data))
+			break ;
+		print_action(philo, "is sleeping");
+		ft_usleep(philo->data->time_to_sleep, philo);
+		if (is_simulation_over(philo->data))
+			break ;
+		print_action(philo, "is thinking");
 	}
 	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:39:37 by franc             #+#    #+#             */
-/*   Updated: 2025/06/17 16:05:19 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:54:13 by franc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void take_forks(t_philo *philo)
 void update_philo_state(t_philo *philo)
 {
 	print_action(philo, "is eating");
-	pthread_mutex_lock(&philo->data->print_mutex);
+	pthread_mutex_lock(&philo->data->philo_mutex);
 	philo->last_meal = get_time();
 	philo->meal_count++;
-	pthread_mutex_unlock(&philo->data->print_mutex);
+	pthread_mutex_unlock(&philo->data->philo_mutex);
 	ft_usleep(philo->data->time_to_eat, philo);
 	if (philo->id % 2 == 0)
 	{

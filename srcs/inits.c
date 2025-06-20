@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:42:53 by franc             #+#    #+#             */
-/*   Updated: 2025/06/17 16:44:18 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:19:52 by franc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,22 @@ static int	init_mutexes(t_data *data)
 		return (1);
 	if (pthread_mutex_init(&data->dead_mutex, NULL) != 0)
 	{
-		pthread_mutex_destroy(&data->dead_mutex);
+		pthread_mutex_destroy(&data->print_mutex);
 		return (1);
 	}
 	i = -1;
 	while (++i < data->num_philos)
 	{
-		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0 ||
+			pthread_mutex_init(&data->philos[i].philo_mutex, NULL) != 0)
 		{
+			if (i < data->num_philos && pthread_mutex_trylock(&data->philos[i].philo_mutex) == 0)
+				pthread_mutex_destroy(&data->philos[i].philo_mutex);
 			while (--i >= 0)
+			{
 				pthread_mutex_destroy(&data->forks[i]);
+				pthread_mutex_destroy(&data->philos[i].philo_mutex);
+			}
 			pthread_mutex_destroy(&data->print_mutex);
 			pthread_mutex_destroy(&data->dead_mutex);
 			return (1);

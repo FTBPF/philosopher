@@ -3,12 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 15:50:00 by marvin            #+#    #+#             */
-/*   Updated: 2025/06/09 15:50:00 by marvin           ###   ########.fr       */
+/*   Created: 2025/06/19 16:02:36 by franc             #+#    #+#             */
+/*   Updated: 2025/06/19 16:02:36 by franc            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/* ************************************************************************** */	
 
 #include "philo.h"
 
@@ -34,7 +34,7 @@ static int create_philos_threads(t_data *data)
 
 static int create_master_thread(t_data *data, pthread_t *master_thread)
 {
-	if (pthread_create(master_thread, NULL, &game_routine, data) != 0)
+	if (pthread_create(master_thread, NULL, &monitor_simulation, data) != 0)
 	{
 		printf("Error: Failed to create master thread\n");
 		data->dead_flag = 1;
@@ -103,15 +103,9 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	if (create_philos_threads(&data))
-	{
-		printf("Error: Failed to create philosopher threads\n");
 		return (1);
-	}
 	if (create_master_thread(&data, &master_thread))
-	{
-		printf("Error: Failed to create master thread\n");
 		return (1);
-	}
 	wait_for_threads(&data, &master_thread);
 	end_simulation(&data);
 	return (0);

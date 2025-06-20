@@ -44,6 +44,7 @@ typedef struct s_data
 	size_t start_time;
 	t_philo *philos;
 	pthread_mutex_t *forks;
+	pthread_mutex_t philo_mutex;
 	pthread_mutex_t print_mutex;
 	pthread_mutex_t dead_mutex;
 } t_data;
@@ -61,7 +62,7 @@ void	ft_usleep(size_t milli, t_philo *philo);
 
 //  threads
 void	*philo_routine(void *arg);
-void	*game_routine(void *arg);
+void	*monitor_simulation(void *arg);
 
 // parsing
 int		ft_parsing(int argc, char **argv);

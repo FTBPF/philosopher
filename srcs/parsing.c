@@ -6,7 +6,7 @@
 /*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:03:44 by franc             #+#    #+#             */
-/*   Updated: 2025/06/09 18:06:41 by franc            ###   ########.fr       */
+/*   Updated: 2025/06/19 16:20:18 by franc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static int	check_arg(const char *s)
 	return (1);
 }
 
-int	ft_parsing(int ac, char **av)
+int	ft_parsing(int argc, char **argv)
 {
 	int	i;
 
 	i = 1;
-	while (i < ac)
+	while (i < argc)
 	{
-		if (!check_arg(av[i]))
+		if (!check_arg(argv[i]))
 			return (0);
 		i++;
 	}
