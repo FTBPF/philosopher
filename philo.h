@@ -49,25 +49,16 @@ typedef struct s_data
 	pthread_mutex_t	dead_mutex;
 }	t_data;
 
-// thread utils
-int		is_simulation_over(t_data *data);
-void	take_forks(t_philo *philo);
-void	update_philo_state(t_philo *philo);
-void	print_action(t_philo *philo, char *action);
-
-// utils
-long	ft_atol(const char *str);
 long	get_time(void);
-void	ft_usleep(size_t milli, t_philo *philo);
-
-//  threads
+long	ft_atol(const char *str);
 void	*philo_routine(void *arg);
+void	take_forks(t_philo *philo);
 void	*monitor_simulation(void *arg);
-
-// parsing
+int		is_simulation_over(t_data *data);
 int		ft_parsing(int argc, char **argv);
-
-// init
+void	update_philo_state(t_philo *philo);
+void	ft_usleep(size_t milli, t_philo *philo);
+void	print_action(t_philo *philo, char *action);
 int		init_data(t_data *data, int argc, char **argv);
 
 #endif
