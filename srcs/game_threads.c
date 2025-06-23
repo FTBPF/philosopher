@@ -6,7 +6,7 @@
 /*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:10:35 by frteixei          #+#    #+#             */
-/*   Updated: 2025/06/23 13:38:53 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:31:17 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,17 @@ static int	check_all_philos_full(t_data *data)
 {
 	int	i;
 
+	if (data->max_meals == -1)
+		return (0);
 	i = 0;
 	while (i < data->num_philos)
 	{
 		pthread_mutex_lock(&data->philos[i].philo_mutex);
-		if (data->philos[i].meal_count < data->max_meals
-			|| data->max_meals == -1)
+		if (data->philos[i].meal_count < data->max_meals)
+		{
+			pthread_mutex_unlock(&data->philos[i].philo_mutex);
 			return (0);
+		}
 		pthread_mutex_unlock(&data->philos[i].philo_mutex);
 		i++;
 	}
