@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
+/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:20:03 by franc             #+#    #+#             */
-/*   Updated: 2025/06/09 17:46:09 by franc            ###   ########.fr       */
+/*   Updated: 2025/06/23 13:36:22 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ long	get_time(void)
 	return ((time.tv_usec / 1000) + (time.tv_sec * 1000));
 }
 
-void ft_usleep(size_t milli, t_philo *philo)
+void	ft_usleep(size_t milli, t_philo *philo)
 {
-	size_t start_time;
+	size_t	start_time;
 
 	start_time = get_time();
 	while ((get_time() - start_time) < milli)
 	{
 		if (is_simulation_over(philo->data))
-			return;
+			return ;
 		usleep(1);
 	}
 }

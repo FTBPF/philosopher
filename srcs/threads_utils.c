@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   threads_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
+/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:39:37 by franc             #+#    #+#             */
-/*   Updated: 2025/06/19 14:54:13 by franc            ###   ########.fr       */
+/*   Updated: 2025/06/23 13:36:18 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int is_simulation_over(t_data *data)
+int	is_simulation_over(t_data *data)
 {
-	int res;
+	int	res;
 
 	pthread_mutex_lock(&data->dead_mutex);
 	res = data->dead_flag;
@@ -22,17 +22,18 @@ int is_simulation_over(t_data *data)
 	return (res);
 }
 
-void print_action(t_philo *philo, char *action)
+void	print_action(t_philo *philo, char *action)
 {
 	if (is_simulation_over(philo->data))
 		return ;
 	pthread_mutex_lock(&philo->data->print_mutex);
 	if (!is_simulation_over(philo->data))
-		printf("%zu %d %s\n", get_time() - philo->data->start_time, philo->id, action);
+		printf("%zu %d %s\n", get_time() - philo->data->start_time, philo->id,
+			action);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
-void take_forks(t_philo *philo)
+void	take_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
@@ -50,13 +51,13 @@ void take_forks(t_philo *philo)
 	}
 }
 
-void update_philo_state(t_philo *philo)
+void	update_philo_state(t_philo *philo)
 {
 	print_action(philo, "is eating");
-	pthread_mutex_lock(&philo->data->philo_mutex);
+	pthread_mutex_lock(&philo->philo_mutex);
 	philo->last_meal = get_time();
 	philo->meal_count++;
-	pthread_mutex_unlock(&philo->data->philo_mutex);
+	pthread_mutex_unlock(&philo->philo_mutex);
 	ft_usleep(philo->data->time_to_eat, philo);
 	if (philo->id % 2 == 0)
 	{

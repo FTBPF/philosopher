@@ -24,30 +24,30 @@
 
 typedef struct s_philo
 {
-	int id;
-	int meal_count;
-	size_t last_meal;
-	pthread_t thread;
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *right_fork;
-	struct s_data *data;
-} t_philo;
+	int				id;
+	int				meal_count;
+	size_t			last_meal;
+	pthread_t		thread;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	philo_mutex;
+	struct s_data	*data;
+}	t_philo;
 
 typedef struct s_data
 {
-	int num_philos;
-	int time_to_die;
-	int time_to_eat;
-	int time_to_sleep;
-	int max_meals;
-	int dead_flag;
-	size_t start_time;
-	t_philo *philos;
-	pthread_mutex_t *forks;
-	pthread_mutex_t philo_mutex;
-	pthread_mutex_t print_mutex;
-	pthread_mutex_t dead_mutex;
-} t_data;
+	int				num_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				max_meals;
+	int				dead_flag;
+	size_t			start_time;
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	dead_mutex;
+}	t_data;
 
 // thread utils
 int		is_simulation_over(t_data *data);
@@ -68,6 +68,6 @@ void	*monitor_simulation(void *arg);
 int		ft_parsing(int argc, char **argv);
 
 // init
-int init_data(t_data *data, int argc, char **argv);
+int		init_data(t_data *data, int argc, char **argv);
 
 #endif

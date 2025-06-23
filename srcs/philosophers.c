@@ -2,24 +2,28 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philosophers.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: franc <franc@student.42.fr>                +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2025/06/19 16:02:36 by franc             #+#    #+#             */
 /*   Updated: 2025/06/19 16:02:36 by franc            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */	
+/* ************************************************************************** */
 
 #include "philo.h"
 
-static int create_philos_threads(t_data *data)
+static int	create_philos_threads(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->num_philos)
 	{
-		if (pthread_create(&data->philos[i].thread, NULL, &philo_routine, &data->philos[i]) != 0)
+		if (pthread_create(&data->philos[i].thread, NULL, &philo_routine,
+				&data->philos[i]) != 0)
 		{
 			printf("Error: Failed to create philosopher thread %d\n", i);
 			data->dead_flag = 1;
@@ -32,7 +36,7 @@ static int create_philos_threads(t_data *data)
 	return (0);
 }
 
-static int create_master_thread(t_data *data, pthread_t *master_thread)
+static int	create_master_thread(t_data *data, pthread_t *master_thread)
 {
 	if (pthread_create(master_thread, NULL, &monitor_simulation, data) != 0)
 	{
@@ -43,7 +47,7 @@ static int create_master_thread(t_data *data, pthread_t *master_thread)
 	return (0);
 }
 
-static void wait_for_threads(t_data *data, pthread_t *master_thread)
+static void	wait_for_threads(t_data *data, pthread_t *master_thread)
 {
 	int	i;
 
@@ -64,7 +68,7 @@ static void wait_for_threads(t_data *data, pthread_t *master_thread)
 	}
 }
 
-static void end_simulation(t_data *data)
+static void	end_simulation(t_data *data)
 {
 	int	i;
 
@@ -82,9 +86,9 @@ static void end_simulation(t_data *data)
 	data->forks = NULL;
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_data		data;
 	pthread_t	master_thread;
 
 	if (argc < 5 || argc > 6)

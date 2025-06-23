@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
+/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:03:44 by franc             #+#    #+#             */
-/*   Updated: 2025/06/19 16:20:18 by franc            ###   ########.fr       */
+/*   Updated: 2025/06/23 13:36:02 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int is_valid(long n)
+static int	is_valid(long n)
 {
 	if (n <= 0 || n > 2147483647)
 		return (0);
 	return (1);
 }
 
-static int is_digit(const char *s)
+static int	is_digit(const char *s)
 {
 	int	i;
 

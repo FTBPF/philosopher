@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: franc <franc@student.42.fr>                +#+  +:+       +#+        */
+/*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 16:42:53 by franc             #+#    #+#             */
-/*   Updated: 2025/06/19 17:19:52 by franc            ###   ########.fr       */
+/*   Updated: 2025/06/23 13:41:42 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,13 @@ static int	init_mutexes(t_data *data)
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
 		return (1);
 	if (pthread_mutex_init(&data->dead_mutex, NULL) != 0)
-	{
-		pthread_mutex_destroy(&data->print_mutex);
-		return (1);
-	}
+		return (pthread_mutex_destroy(&data->print_mutex), 1);
 	i = -1;
 	while (++i < data->num_philos)
 	{
-		if (pthread_mutex_init(&data->forks[i], NULL) != 0 ||
-			pthread_mutex_init(&data->philos[i].philo_mutex, NULL) != 0)
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0
+			|| pthread_mutex_init(&data->philos[i].philo_mutex, NULL) != 0)
 		{
-			if (i < data->num_philos && pthread_mutex_trylock(&data->philos[i].philo_mutex) == 0)
-				pthread_mutex_destroy(&data->philos[i].philo_mutex);
 			while (--i >= 0)
 			{
 				pthread_mutex_destroy(&data->forks[i]);
