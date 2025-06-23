@@ -6,7 +6,7 @@
 /*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:03:44 by franc             #+#    #+#             */
-/*   Updated: 2025/06/23 13:36:02 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:35:26 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,29 @@ static int	is_valid(long n)
 	return (1);
 }
 
-static int	is_digit(const char *s)
+static int	is_digit(const char *str)
 {
 	int	i;
 
-	if (!s || !*s)
+	if (!str || !*str)
 		return (0);
 	i = 0;
-	while (s[i])
+	while (str[i])
 	{
-		if (s[i] < '0' || s[i] > '9')
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-static int	check_arg(const char *s)
+static int	check_arg(const char *str)
 {
 	int	n;
 
-	if (!is_digit(s))
+	if (!is_digit(str))
 		return (0);
-	n = ft_atol(s);
+	n = ft_atol(str);
 	if (!is_valid(n))
 		return (0);
 	return (1);
