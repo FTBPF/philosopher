@@ -33,18 +33,18 @@ static int	create_philos_threads(t_data *data)
 	return (0);
 }
 
-static int	create_master_thread(t_data *data, pthread_t *master_thread)
+static int	create_monitor_thread(t_data *data, pthread_t *monitor_thread)
 {
-	if (pthread_create(master_thread, NULL, &monitor_simulation, data) != 0)
+	if (pthread_create(monitor_thread, NULL, &monitor_simulation, data) != 0)
 	{
-		printf("Error: Failed to create master thread\n");
+		printf("Error: Failed to create monitor thread\n");
 		data->dead_flag = 1;
 		return (1);
 	}
 	return (0);
 }
 
-static void	wait_for_threads(t_data *data, pthread_t *master_thread)
+static void	wait_for_threads(t_data *data, pthread_t *monitor_thread)
 {
 	int	i;
 
@@ -58,7 +58,7 @@ static void	wait_for_threads(t_data *data, pthread_t *master_thread)
 		}
 		i++;
 	}
-	if (pthread_join(*master_thread, NULL) != 0)
+	if (pthread_join(*monitor_thread, NULL) != 0)
 	{
 		printf("Error: Failed to join master thread\n");
 		data->dead_flag = 1;
@@ -86,7 +86,7 @@ static void	end_simulation(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	pthread_t	master_thread;
+	pthread_t	monitor_thread;
 
 	if (argc < 5 || argc > 6)
 	{
@@ -105,9 +105,9 @@ int	main(int argc, char **argv)
 	}
 	if (create_philos_threads(&data))
 		return (1);
-	if (create_master_thread(&data, &master_thread))
+	if (create_monitor_thread(&data, &monitor_thread))
 		return (1);
-	wait_for_threads(&data, &master_thread);
+	wait_for_threads(&data, &monitor_thread);
 	end_simulation(&data);
 	return (0);
 }
