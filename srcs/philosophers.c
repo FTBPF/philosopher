@@ -73,6 +73,7 @@ static void	end_simulation(t_data *data)
 	while (i < data->num_philos)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philos[i].philo_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&data->print_mutex);
