@@ -6,7 +6,7 @@
 /*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 17:39:37 by franc             #+#    #+#             */
-/*   Updated: 2025/06/23 13:36:18 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:43:03 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_action(t_philo *philo, char *action)
 
 void	take_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0 && philo->data->num_philos % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		print_action(philo, "has taken right fork");

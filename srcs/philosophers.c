@@ -26,8 +26,6 @@ static int	create_philos_threads(t_data *data)
 			data->dead_flag = 1;
 			return (1);
 		}
-		if (data->num_philos > 1)
-			usleep(3);
 		i++;
 	}
 	return (0);

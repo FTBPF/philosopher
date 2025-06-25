@@ -6,7 +6,7 @@
 /*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 16:20:03 by franc             #+#    #+#             */
-/*   Updated: 2025/06/23 13:36:22 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:01:26 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ void	ft_usleep(size_t milli, t_philo *philo)
 	{
 		if (is_simulation_over(philo->data))
 			return ;
-		usleep(1);
+		usleep(1000);
 	}
 }

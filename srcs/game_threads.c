@@ -6,7 +6,7 @@
 /*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:10:35 by frteixei          #+#    #+#             */
-/*   Updated: 2025/06/23 15:31:17 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:43:41 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	*monitor_simulation(void *arg)
 			pthread_mutex_unlock(&data->print_mutex);
 			break ;
 		}
-		usleep(1);
+		usleep(1000);
 	}
 	return (NULL);
 }
@@ -101,7 +101,7 @@ void	*philo_routine(void *arg)
 		return (NULL);
 	}
 	if (philo->id % 2 == 0)
-		usleep(1);
+		usleep(1000);
 	while (!is_simulation_over(philo->data))
 	{
 		take_forks(philo);
