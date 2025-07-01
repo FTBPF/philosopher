@@ -58,7 +58,7 @@ static void	wait_for_threads(t_data *data, pthread_t *monitor_thread)
 	}
 	if (pthread_join(*monitor_thread, NULL) != 0)
 	{
-		printf("Error: Failed to join master thread\n");
+		printf("Error: Failed to join monitor thread\n");
 		data->dead_flag = 1;
 	}
 }

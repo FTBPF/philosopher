@@ -6,7 +6,7 @@
 /*   By: frteixei <frteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:10:35 by frteixei          #+#    #+#             */
-/*   Updated: 2025/06/25 16:43:41 by frteixei         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:30:12 by frteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	*monitor_simulation(void *arg)
 			pthread_mutex_lock(&data->dead_mutex);
 			data->dead_flag = 1;
 			printf("All philosophers have eaten the ");
-			printf("maximum meals number of meals\n");
+			printf("maximum number of meals\n");
 			pthread_mutex_unlock(&data->dead_mutex);
 			pthread_mutex_unlock(&data->print_mutex);
 			break ;
